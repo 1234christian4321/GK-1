@@ -12,8 +12,11 @@ En simpel React Native (Expo) app lavet til opgavekravene.
 ## Kort beskrivelse
 Bruger kan oprette (dummy), logge ind og se en profilside med nogle placeholders (stats + knapper). Footer vises nederst.
 
-## Demo video
-Indsæt link her: _DIN VIDEO LINK HER_
+## Demo video & Github Link
+Demo Video: 
+
+GitHub: https://github.com/1234christian4321/GK-1
+
 
 Forslag til indhold i video:
 1. Åbn app

@@ -16,7 +16,7 @@ export default function ProfileScreen() {
   const stats = [
     { label: 'Ratings', value: 12 },
     { label: 'Favorites', value: 4 },
-    { label: 'Watchlist', value: 9 },
+    { label: 'Gamelist', value: 9 },
   ];
 
   return (
