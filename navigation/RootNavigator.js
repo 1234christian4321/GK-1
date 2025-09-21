@@ -10,7 +10,15 @@ export default function RootNavigator() {
   const { user } = useAuth(); // Hvis user != null er man logget ind
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{
+    headerShown: true,
+    headerStyle: { backgroundColor: '#181A20' },   // Mørk baggrund
+    headerTitleStyle: { color: '#fdf9f9ff' },        // Hvid titel
+    headerTintColor: '#fcf7f7ff',                    // Ikoner / back-knap
+    headerShadowVisible: false,                    
+    contentStyle: { backgroundColor: '#181A20' }   
+  }}>
+
       {/* Hvis logget ind -> kun profilskærm, ellers login + signup */}
       {user ? (
         <Stack.Screen name="Profile" component={ProfileScreen} />
