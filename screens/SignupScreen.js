@@ -86,7 +86,7 @@ export default function SignupScreen({ navigation }) {
               onPress={() => setShowPassword(p => !p)}
             />
           )}
-          textContentType="oneTimeCode" // Trick: forhindrer iOS i at foreslå "stærk adgangskode"
+          textContentType="oneTimeCode" // Forhindrer iOS i at foreslå "stærk adgangskode"
           autoComplete="off" // Deaktiver autofill
           importantForAutofill="no"
           theme={{
