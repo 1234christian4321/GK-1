@@ -6,7 +6,7 @@ import { styles } from '../styles/styles'; // Fælles stylesheet
 import FooterList from '../components/FooterList'; // Footer liste komponent
 
 export default function LoginScreen({ navigation }) {
-  const { login } = useAuth(); // Hent login funktion fra auth context
+  const { login, error, loadingAction } = useAuth(); // Hent login funktion + fejl/loading
   const [email, setEmail] = useState(''); // Email state
   const [password, setPassword] = useState(''); // Password state
   const [showPassword, setShowPassword] = useState(false); // Toggle for at vise/skjule password
@@ -74,12 +74,17 @@ export default function LoginScreen({ navigation }) {
 
         {/* LOGIN KNAP */}
         <View style={styles.buttonWrapper}>
-          <Button 
-            title="Sign In" 
+          <Button
+            title={loadingAction ? 'Signing in...' : 'Sign In'}
             color="#ffffffff"
-            onPress={() => login({ email })} // Simpelt login (kun email gemmes)
+            onPress={() => login({ email, password })}
+            disabled={!email || !password || loadingAction}
           />
         </View>
+
+        {error ? (
+          <Text style={{ color: '#ff6b6b', marginTop: 8, textAlign: 'center', fontSize: 12 }}>{error}</Text>
+        ) : null}
 
         {/* LINK TIL SIGNUP */}
         <TouchableOpacity
