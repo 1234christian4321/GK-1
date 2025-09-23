@@ -7,7 +7,7 @@ import FooterList from '../components/FooterList'; // Fast footer komponent
 
 export default function SignupScreen({ navigation }) {
   // Henter signup funktionen fra auth context
-  const { signup } = useAuth();
+  const { signup, error, loadingAction } = useAuth();
 
   // Lokale state variabler til formularens inputfelter
   const [email, setEmail] = useState(''); // Brugerens email
@@ -21,18 +21,19 @@ export default function SignupScreen({ navigation }) {
   const allFilled = email.trim() && password.trim() && confirmPassword.trim();
 
   // Funktion der køres når brugeren trykker "Opret konto"
-  const handleSignup = () => {
-    if (!allFilled) return; // Ekstra sikkerhed hvis knappen skulle blive trykket for tidligt
-    if (password !== confirmPassword) { // Tjek at adgangskoder matcher
+  const handleSignup = async () => {
+    if (!allFilled) return;
+    if (password !== confirmPassword) {
       Alert.alert('Passwords do not match', 'Please make sure both passwords are identical.');
       return;
     }
-
-    setLoading(true); // Sætter loading så knappen kan disables / vise tekst
+    setLoading(true);
     try {
-      signup({ email }); // Kalder signup fra context (kun email gemmes pt.)
+      await signup({ email, password });
+    } catch (e) {
+      // Error already stored in context
     } finally {
-      setLoading(false); // Sørger for at loading altid slås fra igen
+      setLoading(false);
     }
   };
 
@@ -131,12 +132,16 @@ export default function SignupScreen({ navigation }) {
         {allFilled ? (
           <View style={styles.buttonWrapper}>
             <Button
-              title={loading ? 'Creating...' : 'Create Account'} // Skifter tekst når loading
+              title={loadingAction || loading ? 'Creating...' : 'Create Account'} // Skifter tekst når loading
               onPress={handleSignup}
               color="#f1f1f3ff"
-              disabled={loading} // Deaktiver knap mens vi "opretter"
+              disabled={loadingAction || loading}
             />
           </View>
+        ) : null}
+
+        {error ? (
+          <Text style={{ color: '#ff6b6b', marginTop: 8, textAlign: 'center', fontSize: 12 }}>{error}</Text>
         ) : null}
 
         {/* Link til login skærm */}
